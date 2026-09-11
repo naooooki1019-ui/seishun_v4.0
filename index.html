@@ -1,6 +1,6 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>青春を取り戻せ！｜学園群像劇 Ver.4.1</title>
+<title>青春を取り戻せ！｜学園群像劇 Ver.4.1.1</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#111820;color:#f4f6f8;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",Meiryo,sans-serif}
 #app{max-width:760px;margin:auto;min-height:100vh;background:#19232d}
@@ -8,64 +8,59 @@ header{padding:16px;text-align:center;background:#202b36;position:sticky;top:0;z
 h1{margin:0;font-size:25px;letter-spacing:.08em}.sub{font-size:13px;letter-spacing:.2em}.ver{font-size:10px;opacity:.55}
 .status{display:flex;gap:6px;margin-top:11px}.status span{flex:1;padding:5px 3px;background:#111820;border:1px solid #354352;border-radius:8px;font-size:10px}
 main{padding:12px}.card{overflow:hidden;border:1px solid #3b4855;border-radius:16px;background:#202b35}
-.visual{height:240px;position:relative;overflow:hidden;background:linear-gradient(#b8d6e4 0 52%,#8ba27e 52% 100%)}
-.school{position:absolute;bottom:42px;left:0;width:100%;height:105px;background:#e8e1d4;clip-path:polygon(0 25%,25% 25%,25% 5%,72% 5%,72% 18%,100% 18%,100% 100%,0 100%);opacity:.95}
-.win{position:absolute;top:70px;left:25%;width:45px;height:30px;background:#88a9b9;border:4px solid #eee;box-shadow:60px 0 #88a9b9,120px 0 #88a9b9,180px 0 #88a9b9}
-.tree{position:absolute;right:4%;bottom:40px;width:95px;height:140px}.tree:before{content:"";position:absolute;left:43px;bottom:0;width:12px;height:70px;background:#614b3b}.tree:after{content:"";position:absolute;top:0;width:95px;height:92px;border-radius:50%;background:#5e805d;box-shadow:-22px 25px #6d8e63,25px 25px #4f7353}
-.char{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:145px;height:210px;filter:drop-shadow(0 6px 5px #0006);z-index:2}
-.head{position:absolute;top:15px;left:43px;width:62px;height:70px;border-radius:48%;background:#efc5a7;border:2px solid #574039}
-.hair{position:absolute;top:3px;left:35px;width:80px;height:64px;border-radius:55% 55% 38% 38%;background:#3d3636}.hair:after{content:"";position:absolute;right:-9px;top:25px;width:30px;height:45px;border-radius:0 70% 70% 0;background:#3d3636}
-.body{position:absolute;top:82px;left:27px;width:92px;height:116px;border-radius:28px 28px 8px 8px;background:#f0f0eb;border:2px solid #35424e}
-.tie{position:absolute;top:91px;left:68px;width:12px;height:42px;background:#50677b;clip-path:polygon(50% 0,100% 18%,65% 100%,35% 100%,0 18%)}
-.legs{position:absolute;top:190px;left:42px;width:25px;height:28px;background:#2b3947;box-shadow:35px 0 #2b3947}
+.visual{height:240px;position:relative;overflow:hidden;background:#9ab8c8 center/cover no-repeat}.visual:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0000 55%,#0005 100%);z-index:1}
+ .character{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:190px;height:245px;z-index:2;background-repeat:no-repeat;background-position:left top;background-size:auto 300px;filter:drop-shadow(0 7px 5px #0006)}
 .label{position:absolute;top:10px;left:10px;padding:6px 9px;border-radius:8px;background:#111820cc;font-size:11px;z-index:3}
 .dialogue{padding:15px 17px;background:#1d2731;min-height:175px}.speaker{font-weight:800;color:#abd9ff;margin-bottom:7px}.text{font-size:16px;line-height:1.82;white-space:pre-line}
 .choices{padding:12px 14px 16px;background:#172029}.choice,.next{width:100%;border-radius:10px;padding:13px;margin:6px 0;font:inherit}.choice{text-align:left;color:#fff;background:#273540;border:1px solid #465564}.choice.selected{background:#29465a;border-color:#9bd3fa;color:#c9eaff}.next{border:0;background:#edf1f3;color:#182029;font-weight:800}
-.end{display:none;text-align:center;padding:40px 15px}
+.credit{text-align:center;padding:12px 0 22px;font-size:10px;opacity:.48}.end{display:none;text-align:center;padding:40px 15px}
 </style></head><body><div id="app">
-<header><h1>青春を取り戻せ！</h1><div class="sub">学園群像劇</div><div class="ver">Ver.4.1｜一学期編・雰囲気確認版</div>
+<header><h1>青春を取り戻せ！</h1><div class="sub">学園群像劇</div><div class="ver">Ver.4.1.1.1｜一学期編・素材確認版</div>
 <div class="status"><span>🌸 4月</span><span>☀️ 放課後</span><span>💴 ¥3,000</span><span>🏫 三年B組</span></div></header>
-<main><div class="card"><div class="visual"><div class="school"></div><div class="win"></div><div class="tree"></div><div class="char"><div class="hair"></div><div class="head"></div><div class="body"></div><div class="tie"></div><div class="legs"></div></div><div class="label" id="label"></div></div>
-<div class="dialogue"><div class="speaker" id="speaker"></div><div class="text" id="text"></div></div><div class="choices" id="choices"><button id="nextBtn" class="next" style="display:none">次へ</button></div></div><div class="end" id="end"><h2>TO BE CONTINUED</h2><p>一学期編・完</p><p>二学期編へ続く。</p></div></main></div>
+<main><div class="card"><div class="visual" id="visual"><div class="character" id="character"></div><div class="label" id="label"></div></div>
+<div class="dialogue"><div class="speaker" id="speaker"></div><div class="text" id="text"></div></div><div class="choices" id="choices"><button id="nextBtn" class="next" style="display:none">次へ</button></div></div><div class="end" id="end"><h2>TO BE CONTINUED</h2><p>一学期編・完</p><p>二学期編へ続く。</p></div><div class="credit">背景：みんちりえ　人物：わたおきば</div></main></div>
 <script>
 const S=[
 ["佐藤先生","4月・転校初日","「今日からこのクラスで過ごす転校生だ。まずは自己紹介を」\n\n黒板の前に立つ。三年生の年度初め。クラス中の視線が集まった。\n\n名前と、前の学校から転校してきたことだけを話す。詳しい理由までは言わない。\n\n「席は窓側の後ろ。分からないことがあったら、周りに聞くように」\n\n席へ戻る途中、何人かと目が合う。でも、まだ誰も知らない。\n\nそのとき、隣の列から明るい声が飛んできた。",null],
 ["紗季","4月・転校初日","「ねえ、転校生くん」\n\n振り向くと、女子生徒が笑っていた。\n\n「この学校、最初ちょっと分かりにくいから、困ったら聞いてよ。あと昼休み、ひとりで食べるならこっち来てもいいから」\n\nたったそれだけの会話なのに、少し肩の力が抜けた。\n\n名前を聞くのを忘れていたことに気づく。",[
-"「名前、聞いてもいい？」","saki"],["「昼休み、よろしく」","saki"],["「学校のこと、いろいろ教えてくれる？」","saki"],["少し照れて、軽く会釈する","saki"]]],
+["「名前、聞いてもいい？」","saki"],["「昼休み、よろしく」","saki"],["「学校のこと、いろいろ教えてくれる？」","saki"],["少し照れて、軽く会釈する","saki"]]],
 ["健太","4月・昼休み","翌日、ではなく——その日の昼休み。\n\n昨日までなら、ひとりで過ごしていたはずだ。でも今日は紗季が手を振っている。\n\n「ほら、こっち。健太もいるよ」\n\n机を寄せると、男子が笑った。\n\n「転校初日で女子から昼飯に誘われるとか、なかなかやるじゃん」\n\n「そういう言い方すると困るだろ」\n\n「はは。まあ座れよ」\n\nくだらないやり取りなのに、なんだか懐かしい。昨日まで知らなかった人たちなのに、少しずつ“クラス”が近くなっていく。",null],
 ["僕","4月・放課後","放課後。健太が鞄を肩にかけながら声をかけてきた。\n\n「このあと時間ある？　駅前のファストフード寄ってかない？」\n\n転校したばかりで、特に予定はない。ここで一緒に帰れば、もう少し健太のことが分かりそうだ。",[
-"「行こう。腹減ってた」","kenta"],["「どんな店？　案内してよ」","kenta"],["「少しだけなら」","kenta"],["「今日はやめておくよ」","kenta"]]],
+["「行こう。腹減ってた」","kenta"],["「どんな店？　案内してよ」","kenta"],["「少しだけなら」","kenta"],["「今日はやめておくよ」","kenta"]]],
 ["健太","4月・放課後","「前の学校では何してたんだ？」\n\nポテトをつまみながら、健太が聞いてくる。僕は前の学校のことを少し話した。健太も好きな音楽やゲームの話をする。\n\n「で、部活どうする？　三年だから入らないやつもいるけど、途中からでも結構入るぞ」\n\nテーブルのチラシには、テニス部、サッカー部、バスケ部。\n\n「せっかくだし、どこか入ってみれば？　放課後に行く場所があるって、結構大きいぞ」\n\nその言葉が、なぜか心に残った。",null],
 ["僕","4月・部活動","三年生の途中から始める部活。本気で大会を目指すほどの時間はない。でも、学校に“自分の居場所”を作るという意味では悪くない。\n\n僕は三つの中から一つを選んだ。",[
-"テニス部に入る","club"],["サッカー部に入る","club"],["バスケ部に入る","club"],["部活には入らず、自由に過ごす","club"]]],
+["テニス部に入る","club"],["サッカー部に入る","club"],["バスケ部に入る","club"],["部活には入らず、自由に過ごす","club"]]],
 ["僕","4月・放課後","部活を終えて校舎へ戻る途中、音楽室の前を通った。\n\n中から管楽器の音が聞こえる。窓の向こうに、一人の女子生徒が見えた。\n\n楽譜を見ながら、黙々と楽器を吹いている。僕が見ていることに気づいたのか、一瞬だけこちらを見る。\n\n目が合った。\n\n慌てて会釈すると、彼女も小さく会釈を返した。\n\n歩き出したけれど、なぜか名前が気になった。",null],
 ["健太","4月・翌日","翌日。\n\n「昨日、音楽室の前にいたろ？」\n\n朝、健太に聞いてみると、すぐに誰のことか分かったらしい。\n\n「ああ、結花？　白石結花。吹奏楽やってるやつ」\n\n「白石……結花」\n\n名前を知っただけなのに、昨日より少しだけ近くなった気がする。\n\n「話したことないなら、無理に行くなよ。あいつ、静かなタイプだから」\n\n「分かってるよ」\n\nこれから一年を過ごすなら、いつか話すこともあるだろう。そう思った。",null],
 ["僕","5月・スポーツフェスティバル","数日後、五月。\n\nクラスではスポーツフェスティバルの練習が始まった。種目決めでは意見が割れ、練習では声を出す人と出さない人がいる。\n\n僕はまだクラスの中心にいるわけじゃない。それでも、健太と大縄の回数を数えたり、紗季に頼まれてプリントを配ったりしている。\n\n転校初日の静かな教室とは、少し違って見えた。",null],
 ["僕","5月・スポーツフェスティバル","練習中、大縄が何度も失敗する。\n\n「誰か掛け声やってよ！」\n\nここで自分が前に出るか、それとも別の形でクラスを支えるか。",[
-"自分が前に出て掛け声をする","class"],["苦手そうな人のところへ行ってコツを教える","class"],["健太と回すタイミングを合わせる","kenta"],["紗季に任せて、自分は黙って練習する","saki"]]],
+["自分が前に出て掛け声をする","class"],["苦手そうな人のところへ行ってコツを教える","class"],["健太と回すタイミングを合わせる","kenta"],["紗季に任せて、自分は黙って練習する","saki"]]],
 ["紗季","5月・スポーツフェスティバル","「最初はさ、転校してきたばっかりだから、もっと大人しい人かと思ってた」\n\n練習後、紗季が笑う。\n\n「でも、意外とちゃんとクラスに混ざってるよね」\n\n「そうかな」\n\n「うん。もう“転校生”って感じしないもん」\n\nその言葉が、思った以上に嬉しかった。\n\nまだ一か月ちょっと。でも、自分の席があるだけじゃなく、名前を呼んでくれる人がいる。それだけで学校の景色は変わるものらしい。",null],
 ["僕","5月・メール","夜。携帯を開くと、登録したばかりのアドレスからメールが届いていた。\n\n白石結花。件名は「今日のこと」。\n\n短いメールだけど、返事をするには少し考えてしまう。",[
-"「今日は楽しかった。明日も頑張ろう」","yuka"],["「大縄、結構疲れたね（笑）」","yuka"],["「メールありがとう。学校にも慣れてきたよ」","yuka"],["すぐには返さず、明日の朝に送る","yuka"]]],
+["「今日は楽しかった。明日も頑張ろう」","yuka"],["「大縄、結構疲れたね（笑）」","yuka"],["「メールありがとう。学校にも慣れてきたよ」","yuka"],["すぐには返さず、明日の朝に送る","yuka"]]],
 ["白石結花","5月・メール","数分後、返信が来た。\n\n「よかった。転校してきたばかりだと大変かなと思ってた」\n\nそれから今日の練習の話が続く。最後に「じゃあ、おやすみ」と書かれていた。\n\n画面を閉じる。ただのクラスメイトとのメールだ。\n\nなのに、寝る前にもう一度だけ読み返した。",null],
 ["僕","6月・突然の雨","六月。放課後、校門を出たところで雨が降り始めた。\n\n「うわ、マジかよ」\n\n健太も傘を持っていない。二人で駅前のファストフード店まで走った。制服の肩はびしょ濡れ。二人とも笑うしかない。\n\n窓の外では雨が強くなっていく。\n\n「なあ。転校してきて、どう？　ここ」\n\n健太がポテトを一本つまんだ。",[
-"「思ってたより、楽しいよ」","kenta"],["「まだ慣れないけど、悪くない」","kenta"],["「正直、最初は不安だった」","kenta"],["「それよりポテト食べよう」","kenta"]]],
+["「思ってたより、楽しいよ」","kenta"],["「まだ慣れないけど、悪くない」","kenta"],["「正直、最初は不安だった」","kenta"],["「それよりポテト食べよう」","kenta"]]],
 ["健太","6月・雨宿り","「そっか」\n\n健太はそれだけ言って、少し笑った。\n\n「まあ、俺もお前が来てから結構楽しいけどな」\n\n「何それ」\n\n「今まで放課後なんて適当に帰ってたし。部活の話とか、ゲームの話とかできるやつ増えたし」\n\n雨音がガラスを叩く。\n\nこういう何でもない時間が、あとになって思い出になるのかもしれない。",null],
 ["白石結花","6月・調理実習","翌週。調理実習で、偶然、結花と同じ班になった。\n\n「家でも料理するから、たぶん大丈夫」\n\n手際よく野菜を切る結花。\n\n「すごいな」\n\n「そう？　家では普通だよ」\n\n話していると、夏休みの予定の話になる。\n\n「私は……まだ分からないかな。家の都合で、ちょっと予定が変わるかもしれないから」\n\nそう言ったあと、結花はすぐに別の話題へ移った。",null],
 ["僕","6月・放課後","健太が帰り道で言った。\n\n「今度、みんなでどっか行かない？」\n\nせっかくだから、結花や紗季も誘ってみることになった。",[
-"「白石さんも誘おうよ。みんなで行けば楽しそう」","yuka"],["「紗季にも聞いてみよう」","saki"],["「健太が直接誘えば？」と任せる","kenta"],["「四人で行ったら、面白そうだな」","all"]]],
+["「白石さんも誘おうよ。みんなで行けば楽しそう」","yuka"],["「紗季にも聞いてみよう」","saki"],["「健太が直接誘えば？」と任せる","kenta"],["「四人で行ったら、面白そうだな」","all"]]],
 ["僕","6月・休日","数日後、休日。\n\n駅前で待ち合わせると、健太、紗季、結花が先に来ていた。\n\n「遅い！」\n\n「いや、まだ集合時間前だろ」\n\n最初は四人でゲームセンターへ。そのあとCDショップを見て、ファストフードで昼食。途中から自然に二人ずつに分かれて歩く時間もあった。\n\n僕は結花と並んで歩きながら、最近聴いている音楽の話をした。\n\n「今度、そのCD貸そうか？」\n\n「いいの？」\n\n「うん。感想、聞きたいから」\n\nそんなやり取りができることが、少し嬉しかった。",null],
 ["白石結花","6月・休日の夜","夜、メールが届いた。\n\n「今日は楽しかったね」\n\nゲームセンターで紗季が騒いでいたこと、健太が妙に張り切っていたこと、CDショップで見つけたアルバムのことまで書かれている。\n\n最後に「学校でも、また話そうね」とあった。\n\n携帯の画面を見ながら、僕は少しだけ笑った。\n\n四月の転校初日には、こんな日が来るなんて想像していなかった。",null],
 ["僕","7月・期末試験前","七月。期末試験が近づき、放課後の部活も一時休みになった。\n\n教室ではみんなが問題集を開いている。僕も机に向かうけれど、どうしても集中できない。\n\n結花のことを考えてしまう。\n\n「お前、最近ぼーっとしてない？」\n\n隣から健太が言った。\n\n「……そうかな」\n\n「そうだよ。まあ、試験はちゃんとやれよ」\n\n笑われたけれど、図星だった。",null],
 ["僕","7月・期末試験","試験当日。\n\n一学期の締めくくり。ここまで勉強してきたことを思い出しながら、答案に向かう。\n\n分からない問題があっても、最後まで考える。得意科目から解く。時間配分を意識する。\n\n結果の数字ではなく、ここまで学校生活と勉強をどう過ごしてきたかが、少しだけ答案に表れている気がした。",[
-"分からない問題も最後まで考える","study"],["得意科目から確実に解いていく","study"],["時間配分を意識して進める","study"],["落ち着いて、今まで通り解く","study"]]],
+["分からない問題も最後まで考える","study"],["得意科目から確実に解いていく","study"],["時間配分を意識して進める","study"],["落ち着いて、今まで通り解く","study"]]],
 ["僕","7月・終業式","翌週。\n\n試験が終わり、答案が返ってきた。良かった科目もあれば、思ったほどではない科目もある。\n\nでも、今はそれより気になることがあった。\n\n帰りのホームルームが終わる。僕は鞄を持って、結花を探した。\n\n校舎の階段を下り、昇降口へ向かう。外は、夏らしい強い日差しだった。\n\n「白石さん」\n\n声をかける。結花が振り返った。\n\n「どうしたの？」\n\n僕は一度、言葉に詰まった。でも、ここで逃げたくなかった。",null],
 ["白石結花","7月・終業式","「あのさ」\n\n僕が話し始めるより先に、結花が言った。\n\n「私、夏休みからフランスに行くことになったの」\n\n「……え？」\n\n家族の仕事の都合で、しばらくフランスで暮らすことになったらしい。\n\n「もっと早く言えばよかったんだけど……自分でもちゃんと決まるまで、言えなくて」\n\n結花は困ったように笑った。\n\n急に、一学期が別の意味を持ちはじめる。\n\nもっと話したかった。もっと一緒にいたかった。\n\nまだ、何も始まっていないと思っていたのに。",null],
 ["僕","7月・夏の別れ","校門の前。結花と話せる時間は、もうあまり残っていない。\n\n僕はどうする？",[
-"「……僕も、フランスへ行く方法を考える」","france"],["「日本で待ってる。帰ってくる場所を守る」","japan"],["「今は答えを出さず、最後まで一緒に過ごす」","wait"],["「離れても、メールでずっと話そう」","email"]]],
+["「……僕も、フランスへ行く方法を考える」","france"],["「日本で待ってる。帰ってくる場所を守る」","japan"],["「今は答えを出さず、最後まで一緒に過ごす」","wait"],["「離れても、メールでずっと話そう」","email"]]],
 ["僕","7月・一学期最終日","夏の空を見上げる。\n\n四月、僕はこの学校で誰も知らなかった。\n\nそれが今は、紗季がいて、健太がいて、結花がいる。クラスで笑えるようになって、放課後に行く場所ができて、帰り道にくだらない話をする友達もできた。\n\nそして今、その時間が終わろうとしている。\n\nでも、終わりは同時に次の始まりでもある。\n\n僕たちの夏は、まだ始まったばかりだ。\n\n——一学期編・完\nTO BE CONTINUED",null]
 ];
 let i=0;
 const sp=document.getElementById("speaker"),tx=document.getElementById("text"),lb=document.getElementById("label");
+const visual=document.getElementById("visual"),character=document.getElementById("character");
+const BG={classroom:"https://min-chi.material.jp/mc/materials/background-c/front_of_classroom/_front_of_classroom_1.jpg",ground:"https://min-chi.material.jp/mc/materials/background-c/school_ground/_school_ground_1.jpg",restaurant:"https://min-chi.material.jp/mc/materials/background-c/casual_restaurant/_casual_restaurant_1.jpg",entrance:"https://min-chi.material.jp/mc/materials/background-c/school_entrance/_school_entrance_1.jpg"};
+const CH={female:"https://wataokiba.net/wp-content/uploads/2018/06/%E7%B4%B9%E4%BB%8B%E7%94%BB%E5%83%8F1%E3%83%95%E3%83%AA%E3%83%BC%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E5%A5%B3%E5%AD%90%E5%AD%A6%E7%94%9F-1.png",female2:"https://wataokiba.net/wp-content/uploads/2018/03/%E7%B4%B9%E4%BB%8B%E7%94%BB%E5%83%8F13%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E3%82%BB%E3%83%BC%E3%83%A9%E3%83%BC%E6%9C%8D%E3%81%AE%E5%A5%B3%E5%AD%90%E5%AD%A6%E7%94%9F.png",male:"https://wataokiba.net/wp-content/uploads/2018/06/%E7%B4%B9%E4%BB%8B%E7%94%BB%E5%83%8F2%E3%83%95%E3%83%AA%E3%83%BC%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E7%94%B7%E5%AD%90%E5%AD%A6%E7%94%9F-1.png",male2:"https://wataokiba.net/wp-content/uploads/2018/06/%E7%B4%B9%E4%BB%8B%E7%94%BB%E5%83%8F12%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E5%AD%A6%E3%83%A9%E3%83%B3%E3%81%AE%E7%94%B7%E5%AD%90%E5%AD%A6%E7%94%9F2-1.png"};
 const ch=document.getElementById("choices"),en=document.getElementById("end"),nextBtn=document.getElementById("nextBtn");
 
 function goNext(){
@@ -84,11 +79,15 @@ function render(){
   sp.textContent=s[0];
   lb.textContent=s[1];
   tx.textContent=s[2];
+  const L=s[1]+s[2];
+  visual.style.backgroundImage=`url("${L.includes("スポーツフェスティバル")?BG.ground:L.includes("ファストフード")||L.includes("休日")||L.includes("雨宿り")?BG.restaurant:L.includes("終業式")||L.includes("夏の別れ")||L.includes("最終日")?BG.entrance:BG.classroom}")`;
+  const person=(s[0]==="紗季"||s[0]==="白石結花")?(s[0]==="白石結花"?CH.female2:CH.female):(s[0]==="健太"||s[0]==="僕"||s[0]==="佐藤先生")?CH.male:CH.male2;
+  character.style.backgroundImage=`url("${person}")`;
 
   // 選択肢部分を毎回リセット。ただし「次へ」ボタンは必ず同じ場所に再利用する。
   ch.querySelectorAll(".choice").forEach(x=>x.remove());
   ch.querySelectorAll(".choice-result").forEach(x=>x.remove());
-  nextBtn.style.display="none";
+  nextBtn.style.display="none"; nextBtn.hidden=true;
   nextBtn.textContent=(i===S.length-1)?"一学期を終える":"次へ";
   nextBtn.onclick=goNext;
 
@@ -108,12 +107,12 @@ function render(){
         result.style.cssText="margin:7px 0 4px;padding:10px 12px;border-left:3px solid #9bd3fa;color:#c9eaff;font-size:14px;line-height:1.6";
         result.textContent="「"+o[0]+"」";
         ch.insertBefore(result,nextBtn);
-        nextBtn.style.display="block";
+        nextBtn.style.display="block"; nextBtn.hidden=false;
       };
       ch.insertBefore(b,nextBtn);
     });
   }else{
-    nextBtn.style.display="block";
+    nextBtn.style.display="block"; nextBtn.hidden=false;
   }
 }
 render();
