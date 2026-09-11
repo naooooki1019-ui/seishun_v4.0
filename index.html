@@ -26,7 +26,7 @@ main{padding:12px}.card{overflow:hidden;border:1px solid #3b4855;border-radius:1
 <header><h1>青春を取り戻せ！</h1><div class="sub">学園群像劇</div><div class="ver">Ver.4.1｜一学期編・雰囲気確認版</div>
 <div class="status"><span>🌸 4月</span><span>☀️ 放課後</span><span>💴 ¥3,000</span><span>🏫 三年B組</span></div></header>
 <main><div class="card"><div class="visual"><div class="school"></div><div class="win"></div><div class="tree"></div><div class="char"><div class="hair"></div><div class="head"></div><div class="body"></div><div class="tie"></div><div class="legs"></div></div><div class="label" id="label"></div></div>
-<div class="dialogue"><div class="speaker" id="speaker"></div><div class="text" id="text"></div></div><div class="choices" id="choices"></div></div><div class="end" id="end"><h2>TO BE CONTINUED</h2><p>一学期編・完</p><p>二学期編へ続く。</p></div></main></div>
+<div class="dialogue"><div class="speaker" id="speaker"></div><div class="text" id="text"></div></div><div class="choices" id="choices"><button id="nextBtn" class="next" style="display:none">次へ</button></div></div><div class="end" id="end"><h2>TO BE CONTINUED</h2><p>一学期編・完</p><p>二学期編へ続く。</p></div></main></div>
 <script>
 const S=[
 ["佐藤先生","4月・転校初日","「今日からこのクラスで過ごす転校生だ。まずは自己紹介を」\n\n黒板の前に立つ。三年生の年度初め。クラス中の視線が集まった。\n\n名前と、前の学校から転校してきたことだけを話す。詳しい理由までは言わない。\n\n「席は窓側の後ろ。分からないことがあったら、周りに聞くように」\n\n席へ戻る途中、何人かと目が合う。でも、まだ誰も知らない。\n\nそのとき、隣の列から明るい声が飛んできた。",null],
@@ -65,12 +65,56 @@ const S=[
 ["僕","7月・一学期最終日","夏の空を見上げる。\n\n四月、僕はこの学校で誰も知らなかった。\n\nそれが今は、紗季がいて、健太がいて、結花がいる。クラスで笑えるようになって、放課後に行く場所ができて、帰り道にくだらない話をする友達もできた。\n\nそして今、その時間が終わろうとしている。\n\nでも、終わりは同時に次の始まりでもある。\n\n僕たちの夏は、まだ始まったばかりだ。\n\n——一学期編・完\nTO BE CONTINUED",null]
 ];
 let i=0;
-const sp=document.getElementById("speaker"),tx=document.getElementById("text"),lb=document.getElementById("label"),ch=document.getElementById("choices"),en=document.getElementById("end");
+const sp=document.getElementById("speaker"),tx=document.getElementById("text"),lb=document.getElementById("label");
+const ch=document.getElementById("choices"),en=document.getElementById("end"),nextBtn=document.getElementById("nextBtn");
+
+function goNext(){
+  i++;
+  if(i>=S.length){
+    ch.innerHTML="";
+    en.style.display="block";
+    return;
+  }
+  render();
+}
+
 function render(){
- const s=S[i];sp.textContent=s[0];lb.textContent=s[1];tx.textContent=s[2];ch.innerHTML="";
- if(Array.isArray(s[3])){
-  s[3].forEach(o=>{const b=document.createElement("button");b.className="choice";b.textContent=o[0];b.onclick=()=>{document.querySelectorAll(".choice").forEach(x=>x.disabled=true);b.classList.add("selected");const n=document.createElement("button");n.className="next";n.textContent="次へ";n.onclick=()=>{i++;render()};ch.appendChild(n)};ch.appendChild(b)});
- }else{const b=document.createElement("button");b.className="next";b.textContent=i===S.length-1?"一学期を終える":"次へ";b.onclick=()=>{if(i===S.length-1){ch.innerHTML="";en.style.display="block"}else{i++;render()}};ch.appendChild(b)}
+  en.style.display="none";
+  const s=S[i];
+  sp.textContent=s[0];
+  lb.textContent=s[1];
+  tx.textContent=s[2];
+
+  // 選択肢部分を毎回リセット。ただし「次へ」ボタンは必ず同じ場所に再利用する。
+  ch.querySelectorAll(".choice").forEach(x=>x.remove());
+  ch.querySelectorAll(".choice-result").forEach(x=>x.remove());
+  nextBtn.style.display="none";
+  nextBtn.textContent=(i===S.length-1)?"一学期を終える":"次へ";
+  nextBtn.onclick=goNext;
+
+  if(Array.isArray(s[3])){
+    s[3].forEach(o=>{
+      const b=document.createElement("button");
+      b.className="choice";
+      b.textContent=o[0];
+      b.onclick=()=>{
+        // 選択後は選択肢を消し、選んだ回答だけを残す。
+        ch.querySelectorAll(".choice").forEach(x=>{
+          x.disabled=true;
+          x.style.display="none";
+        });
+        const result=document.createElement("div");
+        result.className="choice-result";
+        result.style.cssText="margin:7px 0 4px;padding:10px 12px;border-left:3px solid #9bd3fa;color:#c9eaff;font-size:14px;line-height:1.6";
+        result.textContent="「"+o[0]+"」";
+        ch.insertBefore(result,nextBtn);
+        nextBtn.style.display="block";
+      };
+      ch.insertBefore(b,nextBtn);
+    });
+  }else{
+    nextBtn.style.display="block";
+  }
 }
 render();
 </script></body></html>
