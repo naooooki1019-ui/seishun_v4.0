@@ -1,6 +1,6 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>青春を取り戻せ！｜学園群像劇 Ver.4.1.1</title>
+<title>青春を取り戻せ！｜学園群像劇 Ver.4.1.2</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#111820;color:#f4f6f8;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",Meiryo,sans-serif}
 #app{max-width:760px;margin:auto;min-height:100vh;background:#19232d}
@@ -9,13 +9,13 @@ h1{margin:0;font-size:25px;letter-spacing:.08em}.sub{font-size:13px;letter-spaci
 .status{display:flex;gap:6px;margin-top:11px}.status span{flex:1;padding:5px 3px;background:#111820;border:1px solid #354352;border-radius:8px;font-size:10px}
 main{padding:12px}.card{overflow:hidden;border:1px solid #3b4855;border-radius:16px;background:#202b35}
 .visual{height:240px;position:relative;overflow:hidden;background:#9ab8c8 center/cover no-repeat}.visual:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0000 55%,#0005 100%);z-index:1}
- .character{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:190px;height:245px;z-index:2;background-repeat:no-repeat;background-position:left top;background-size:auto 300px;filter:drop-shadow(0 7px 5px #0006)}
+.character{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:125px;height:245px;z-index:2;background-repeat:no-repeat;background-position:left top;background-size:auto 300px;filter:drop-shadow(0 7px 5px #0006)}
 .label{position:absolute;top:10px;left:10px;padding:6px 9px;border-radius:8px;background:#111820cc;font-size:11px;z-index:3}
-.dialogue{padding:15px 17px;background:#1d2731;min-height:175px}.speaker{font-weight:800;color:#abd9ff;margin-bottom:7px}.text{font-size:16px;line-height:1.82;white-space:pre-line}
+.dialogue{padding:12px 15px;background:#1d2731;min-height:150px;display:flex;flex-direction:column;justify-content:center}.speaker{font-weight:800;color:#abd9ff;margin-bottom:6px}.text{font-size:16px;line-height:1.65;white-space:pre-line;overflow:hidden}
 .choices{padding:12px 14px 16px;background:#172029}.choice,.next{width:100%;border-radius:10px;padding:13px;margin:6px 0;font:inherit}.choice{text-align:left;color:#fff;background:#273540;border:1px solid #465564}.choice.selected{background:#29465a;border-color:#9bd3fa;color:#c9eaff}.next{border:0;background:#edf1f3;color:#182029;font-weight:800}
 .credit{text-align:center;padding:12px 0 22px;font-size:10px;opacity:.48}.end{display:none;text-align:center;padding:40px 15px}
 </style></head><body><div id="app">
-<header><h1>青春を取り戻せ！</h1><div class="sub">学園群像劇</div><div class="ver">Ver.4.1.1.1｜一学期編・素材確認版</div>
+<header><h1>青春を取り戻せ！</h1><div class="sub">学園群像劇</div><div class="ver">Ver.4.1.2｜一学期編・素材確認版</div>
 <div class="status"><span>🌸 4月</span><span>☀️ 放課後</span><span>💴 ¥3,000</span><span>🏫 三年B組</span></div></header>
 <main><div class="card"><div class="visual" id="visual"><div class="character" id="character"></div><div class="label" id="label"></div></div>
 <div class="dialogue"><div class="speaker" id="speaker"></div><div class="text" id="text"></div></div><div class="choices" id="choices"><button id="nextBtn" class="next" style="display:none">次へ</button></div></div><div class="end" id="end"><h2>TO BE CONTINUED</h2><p>一学期編・完</p><p>二学期編へ続く。</p></div><div class="credit">背景：みんちりえ　人物：わたおきば</div></main></div>
@@ -57,63 +57,89 @@ const S=[
 ["僕","7月・一学期最終日","夏の空を見上げる。\n\n四月、僕はこの学校で誰も知らなかった。\n\nそれが今は、紗季がいて、健太がいて、結花がいる。クラスで笑えるようになって、放課後に行く場所ができて、帰り道にくだらない話をする友達もできた。\n\nそして今、その時間が終わろうとしている。\n\nでも、終わりは同時に次の始まりでもある。\n\n僕たちの夏は、まだ始まったばかりだ。\n\n——一学期編・完\nTO BE CONTINUED",null]
 ];
 let i=0;
+let chunkIndex=0;
 const sp=document.getElementById("speaker"),tx=document.getElementById("text"),lb=document.getElementById("label");
 const visual=document.getElementById("visual"),character=document.getElementById("character");
 const BG={classroom:"https://min-chi.material.jp/mc/materials/background-c/front_of_classroom/_front_of_classroom_1.jpg",ground:"https://min-chi.material.jp/mc/materials/background-c/school_ground/_school_ground_1.jpg",restaurant:"https://min-chi.material.jp/mc/materials/background-c/casual_restaurant/_casual_restaurant_1.jpg",entrance:"https://min-chi.material.jp/mc/materials/background-c/school_entrance/_school_entrance_1.jpg"};
 const CH={female:"https://wataokiba.net/wp-content/uploads/2018/06/%E7%B4%B9%E4%BB%8B%E7%94%BB%E5%83%8F1%E3%83%95%E3%83%AA%E3%83%BC%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E5%A5%B3%E5%AD%90%E5%AD%A6%E7%94%9F-1.png",female2:"https://wataokiba.net/wp-content/uploads/2018/03/%E7%B4%B9%E4%BB%8B%E7%94%BB%E5%83%8F13%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E3%82%BB%E3%83%BC%E3%83%A9%E3%83%BC%E6%9C%8D%E3%81%AE%E5%A5%B3%E5%AD%90%E5%AD%A6%E7%94%9F.png",male:"https://wataokiba.net/wp-content/uploads/2018/06/%E7%B4%B9%E4%BB%8B%E7%94%BB%E5%83%8F2%E3%83%95%E3%83%AA%E3%83%BC%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E7%94%B7%E5%AD%90%E5%AD%A6%E7%94%9F-1.png",male2:"https://wataokiba.net/wp-content/uploads/2018/06/%E7%B4%B9%E4%BB%8B%E7%94%BB%E5%83%8F12%E7%AB%8B%E3%81%A1%E7%B5%B5%E7%B4%A0%E6%9D%90%E5%AD%A6%E3%83%A9%E3%83%B3%E3%81%AE%E7%94%B7%E5%AD%90%E5%AD%A6%E7%94%9F2-1.png"};
 const ch=document.getElementById("choices"),en=document.getElementById("end"),nextBtn=document.getElementById("nextBtn");
 
+function splitDialogue(text){
+  const paras=text.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+  const chunks=[];
+  const MAX=58;
+  paras.forEach(p=>{
+    if(p.length<=MAX){chunks.push(p);return;}
+    let rest=p;
+    while(rest.length>MAX){
+      let cut=-1;
+      const candidates=['。','！','？','」','、'];
+      candidates.forEach(mark=>{const pos=rest.lastIndexOf(mark,MAX); if(pos>cut) cut=pos;});
+      if(cut<28) cut=MAX;
+      chunks.push(rest.slice(0,cut+1).trim());
+      rest=rest.slice(cut+1).trim();
+    }
+    if(rest) chunks.push(rest);
+  });
+  return chunks.length?chunks:[''];
+}
+
+function showCurrentChunk(){
+  const s=S[i];
+  const chunks=splitDialogue(s[2]);
+  tx.textContent=chunks[chunkIndex] || '';
+  const finished=chunkIndex>=chunks.length-1;
+  ch.querySelectorAll('.choice').forEach(x=>x.remove());
+  ch.querySelectorAll('.choice-result').forEach(x=>x.remove());
+  nextBtn.style.display='none'; nextBtn.hidden=true;
+  nextBtn.textContent=(i===S.length-1)?'一学期を終える':'次へ';
+  if(!finished){
+    nextBtn.style.display='block'; nextBtn.hidden=false;
+    nextBtn.onclick=()=>{chunkIndex++; showCurrentChunk();};
+    return;
+  }
+  if(Array.isArray(s[3])){
+    s[3].forEach(o=>{
+      const b=document.createElement('button');
+      b.className='choice'; b.textContent=o[0];
+      b.onclick=()=>{
+        ch.querySelectorAll('.choice').forEach(x=>{x.disabled=true;x.style.display='none';});
+        const result=document.createElement('div');
+        result.className='choice-result';
+        result.style.cssText='margin:7px 0 4px;padding:10px 12px;border-left:3px solid #9bd3fa;color:#c9eaff;font-size:14px;line-height:1.6';
+        result.textContent='「'+o[0]+'」';
+        ch.insertBefore(result,nextBtn);
+        nextBtn.style.display='block'; nextBtn.hidden=false; nextBtn.onclick=goNext;
+      };
+      ch.insertBefore(b,nextBtn);
+    });
+  }else{
+    nextBtn.style.display='block'; nextBtn.hidden=false; nextBtn.onclick=goNext;
+  }
+}
+
 function goNext(){
   i++;
+  chunkIndex=0;
   if(i>=S.length){
-    ch.innerHTML="";
-    en.style.display="block";
+    ch.innerHTML='';
+    en.style.display='block';
     return;
   }
   render();
 }
 
 function render(){
-  en.style.display="none";
+  en.style.display='none';
+  chunkIndex=0;
   const s=S[i];
   sp.textContent=s[0];
   lb.textContent=s[1];
-  tx.textContent=s[2];
   const L=s[1]+s[2];
   visual.style.backgroundImage=`url("${L.includes("スポーツフェスティバル")?BG.ground:L.includes("ファストフード")||L.includes("休日")||L.includes("雨宿り")?BG.restaurant:L.includes("終業式")||L.includes("夏の別れ")||L.includes("最終日")?BG.entrance:BG.classroom}")`;
   const person=(s[0]==="紗季"||s[0]==="白石結花")?(s[0]==="白石結花"?CH.female2:CH.female):(s[0]==="健太"||s[0]==="僕"||s[0]==="佐藤先生")?CH.male:CH.male2;
   character.style.backgroundImage=`url("${person}")`;
-
-  // 選択肢部分を毎回リセット。ただし「次へ」ボタンは必ず同じ場所に再利用する。
-  ch.querySelectorAll(".choice").forEach(x=>x.remove());
-  ch.querySelectorAll(".choice-result").forEach(x=>x.remove());
-  nextBtn.style.display="none"; nextBtn.hidden=true;
-  nextBtn.textContent=(i===S.length-1)?"一学期を終える":"次へ";
-  nextBtn.onclick=goNext;
-
-  if(Array.isArray(s[3])){
-    s[3].forEach(o=>{
-      const b=document.createElement("button");
-      b.className="choice";
-      b.textContent=o[0];
-      b.onclick=()=>{
-        // 選択後は選択肢を消し、選んだ回答だけを残す。
-        ch.querySelectorAll(".choice").forEach(x=>{
-          x.disabled=true;
-          x.style.display="none";
-        });
-        const result=document.createElement("div");
-        result.className="choice-result";
-        result.style.cssText="margin:7px 0 4px;padding:10px 12px;border-left:3px solid #9bd3fa;color:#c9eaff;font-size:14px;line-height:1.6";
-        result.textContent="「"+o[0]+"」";
-        ch.insertBefore(result,nextBtn);
-        nextBtn.style.display="block"; nextBtn.hidden=false;
-      };
-      ch.insertBefore(b,nextBtn);
-    });
-  }else{
-    nextBtn.style.display="block"; nextBtn.hidden=false;
-  }
+  showCurrentChunk();
 }
 render();
 </script></body></html>
